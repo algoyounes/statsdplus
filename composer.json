@@ -1,0 +1,33 @@
+{
+    "name": "algoyounes/statsdplus",
+    "description": "Streamlined StatsD integration for PHP, enhanced for Laravel, simplifying metrics tracking and performance analysis.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["statsd", "metrics", "monitoring", "laravel", "performance"],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "AlgoYounes\\StatsDPlus\\": "src/"
+        },
+        "files": [
+            "helpers/helpers.php"
+        ]
+    },
+    "require": {
+        "php": ">=7.4",
+        "league/statsd": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "laravel/framework": ">=5.8"
+    },
+    "suggest": {
+        "laravel/framework": "The package can be used more effectively with Laravel."
+    },
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "youremail@example.com"
+        }
+    ]
+}
