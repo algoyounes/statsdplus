@@ -1,6 +1,6 @@
 {
     "name": "algoyounes/statsdplus",
-    "description": "Streamlined StatsD integration for PHP, enhanced for Laravel, simplifying metrics tracking and performance analysis.",
+    "description": "Streamlined StatsD integration, enhanced for Laravel, simplifying metrics tracking and performance analysis.",
     "type": "library",
     "license": "MIT",
     "keywords": ["statsd", "metrics", "monitoring", "laravel", "performance"],
@@ -26,8 +26,8 @@
     },
     "authors": [
         {
-            "name": "Your Name",
-            "email": "youremail@example.com"
+            "name": "Algo Younes",
+            "email": "algoyounes@gmail.com"
         }
     ]
 }
