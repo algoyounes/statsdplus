@@ -37,18 +37,32 @@ composer require algyounes/statsdplus
 
    ```shell
    STATSD_PORT=8125
-   STATSD_NAMESPACE=shop_platform_test
-   STATSD_HOST=statsd.lon3.ibm.youcancorp.com
+   STATSD_NAMESPACE=my_app_namespace
+   STATSD_HOST=my.statsd.server.com
    ```
 
 3. Start recording your metrics
 
    ```php
     // Direct use of MetricsLogger
-    app(\AlgoYounes\StatsDPlus\Core\MetricsLogger::class)->time('liquid.parse', function () {
+    app(\AlgoYounes\StatsDPlus\Core\MetricsLogger::class)->time('operation.duration', function () {
         // Time-consuming operation
     });
     
-    // Using helper functions
-    mt_incr('registrations', 1);
+    // Using helper functions for incrementing a metric
+    mt_incr('user.registrations', 1);
+   
+   // Recording a gauge value
+   mt_gauge('memory.usage', $memoryUsage);
+   
+   // Measure the duration of code execution using mt_startTimer and mt_endTimer :
+
+   // Start the timer for a specific operation
+   mt_startTimer('db.query.execution');
+   
+   // Execute the operation you want to time
+   $result = DB::table('users')->get();
+   
+   // Stop the timer and log the duration
+   mt_endTimer('db.query.execution');
    ```
