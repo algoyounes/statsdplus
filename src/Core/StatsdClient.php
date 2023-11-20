@@ -17,12 +17,12 @@ class StatsdClient
         $this->leagueClient->configure($config);
     }
 
-    public function increment(string $key, int $value = 1, int $rate = 1, array $tags = []): void
+    public function increment(string $key, int $value = 1, float $rate = 1, array $tags = []): void
     {
         $this->attempt(fn() => $this->leagueClient->increment($key, $value, $rate, $tags));
     }
 
-    public function decrement(string $key, int $value = 1, int $rate = 1, array $tags = []): void
+    public function decrement(string $key, int $value = 1, float $rate = 1, array $tags = []): void
     {
         $this->attempt(fn() => $this->leagueClient->decrement($key, $value, $rate, $tags));
     }
@@ -54,6 +54,18 @@ class StatsdClient
     public function gauge(string $key, int $value, array $tags = []): void
     {
         $this->attempt(fn() => $this->leagueClient->gauge($key, $value, $tags));
+    }
+
+    /**
+     * Sets a metric with unique elements to track distinct occurrences
+     *
+     * @param string $key The name of the metric to track.
+     * @param string|int $value The unique element to count, e.g., userID, productID.
+     * @param array $tags Additional tags for contextual information.
+     */
+    public function setUniqueElement(string $key, string|int $value, array $tags = []): void
+    {
+        $this->attempt(fn() => $this->leagueClient->set($key, $value, $tags));
     }
 
     private function attempt(callable $callable): void
