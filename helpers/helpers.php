@@ -41,3 +41,24 @@ if (!function_exists('mt_decr')) {
         getMetricsLogger()->decr($metric, $delta, $rate, $tags);
     }
 }
+
+if (!function_exists('mt_trackUnique')) {
+    function mt_trackUnique(string $metric, string|int $value, array $tags = []): void
+    {
+        getMetricsLogger()->captureUniqueElement($metric, $value, $tags);
+    }
+}
+
+if (!function_exists('mt_trackRate')) {
+    function mt_trackRate(string $metric, string $value, array $tags = []): void
+    {
+        getMetricsLogger()->trackRate($metric, $value, $tags);
+    }
+}
+
+if (!function_exists('mt_trackError')) {
+    function mt_trackError(string $metric, Throwable $error, array $tags = []): void
+    {
+        getMetricsLogger()->trackError($metric, $error, $tags);
+    }
+}

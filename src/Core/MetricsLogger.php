@@ -2,6 +2,8 @@
 
 namespace AlgoYounes\StatsDPlus\Core;
 
+use Throwable;
+
 class MetricsLogger
 {
     private StatsdClient $client;
@@ -32,19 +34,35 @@ class MetricsLogger
         $this->client->endTimer($metric, $tags);
     }
 
-    /**
-     * @param int|float $rate
-     */
-    public function incr(string $metric, int $delta = 1, $rate = 1, array $tags = []): void
+    public function incr(string $metric, int $delta = 1, float $rate = 1, array $tags = []): void
     {
         $this->client->increment($metric, $delta, $rate, $tags);
     }
 
-    /**
-     * @param int|float $rate
-     */
-    public function decr(string $metric, int $delta = 1, $rate = 1, array $tags = []): void
+    public function decr(string $metric, int $delta = 1, float $rate = 1, array $tags = []): void
     {
         $this->client->decrement($metric, $delta, $rate, $tags);
+    }
+
+    /**
+     * Captures a unique occurrence of a specified metric.
+     *
+     * @param string $metric The name of the metric.
+     * @param string|int $value The unique element to be counted.
+     * @param array $tags Additional contextual information tags.
+     */
+    public function captureUniqueElement(string $metric, string|int $value, array $tags = []): void
+    {
+        $this->client->setUniqueElement($metric, $value, $tags);
+    }
+
+    public function trackRate(string $metric, float $value, array $tags = []): void
+    {
+        $this->client->gauge($metric, $value, $tags);
+    }
+
+    public function trackError(string $metric, Throwable $error, array $tags = []): void
+    {
+        $this->client->trackError($metric, $error, $tags);
     }
 }

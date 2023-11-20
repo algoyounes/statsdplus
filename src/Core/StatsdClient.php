@@ -4,6 +4,7 @@ namespace AlgoYounes\StatsDPlus\Core;
 
 use League\StatsD\Client as LeagueStatsDClient;
 use League\StatsD\Exception\Exception;
+use Throwable;
 
 class StatsdClient
 {
@@ -17,12 +18,12 @@ class StatsdClient
         $this->leagueClient->configure($config);
     }
 
-    public function increment(string $key, int $value = 1, int $rate = 1, array $tags = []): void
+    public function increment(string $key, int $value = 1, float $rate = 1, array $tags = []): void
     {
         $this->attempt(fn() => $this->leagueClient->increment($key, $value, $rate, $tags));
     }
 
-    public function decrement(string $key, int $value = 1, int $rate = 1, array $tags = []): void
+    public function decrement(string $key, int $value = 1, float $rate = 1, array $tags = []): void
     {
         $this->attempt(fn() => $this->leagueClient->decrement($key, $value, $rate, $tags));
     }
@@ -54,6 +55,32 @@ class StatsdClient
     public function gauge(string $key, int $value, array $tags = []): void
     {
         $this->attempt(fn() => $this->leagueClient->gauge($key, $value, $tags));
+    }
+
+    /**
+     * Sets a metric with unique elements to track distinct occurrences
+     *
+     * @param string $key The name of the metric to track.
+     * @param string|int $value The unique element to count, e.g., userID, productID.
+     * @param array $tags Additional tags for contextual information.
+     */
+    public function setUniqueElement(string $key, string|int $value, array $tags = []): void
+    {
+        $this->attempt(fn() => $this->leagueClient->set($key, $value, $tags));
+    }
+
+    /**
+     * Tracks the occurrence of an error.
+     *
+     * @param string $key The key name associated with the error.
+     * @param Throwable $error The exception to track.
+     * @param array $tags Additional tags for contextual information.
+     */
+    public function trackError(string $key, Throwable $error, array $tags = []): void
+    {
+        $tags['error'] = get_class($error);
+
+        $this->increment($key, 1, 1, $tags);
     }
 
     private function attempt(callable $callable): void
