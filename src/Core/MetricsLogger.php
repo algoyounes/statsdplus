@@ -2,6 +2,8 @@
 
 namespace AlgoYounes\StatsDPlus\Core;
 
+use Throwable;
+
 class MetricsLogger
 {
     private StatsdClient $client;
@@ -57,5 +59,10 @@ class MetricsLogger
     public function trackRate(string $metric, float $value, array $tags = []): void
     {
         $this->client->gauge($metric, $value, $tags);
+    }
+
+    public function trackError(string $metric, Throwable $error, array $tags = []): void
+    {
+        $this->client->trackError($metric, $error, $tags);
     }
 }

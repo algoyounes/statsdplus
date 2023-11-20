@@ -4,6 +4,7 @@ namespace AlgoYounes\StatsDPlus\Core;
 
 use League\StatsD\Client as LeagueStatsDClient;
 use League\StatsD\Exception\Exception;
+use Throwable;
 
 class StatsdClient
 {
@@ -66,6 +67,20 @@ class StatsdClient
     public function setUniqueElement(string $key, string|int $value, array $tags = []): void
     {
         $this->attempt(fn() => $this->leagueClient->set($key, $value, $tags));
+    }
+
+    /**
+     * Tracks the occurrence of an error.
+     *
+     * @param string $key The key name associated with the error.
+     * @param Throwable $error The exception to track.
+     * @param array $tags Additional tags for contextual information.
+     */
+    public function trackError(string $key, Throwable $error, array $tags = []): void
+    {
+        $tags['error'] = get_class($error);
+
+        $this->increment($key, 1, 1, $tags);
     }
 
     private function attempt(callable $callable): void

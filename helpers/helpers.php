@@ -55,3 +55,10 @@ if (!function_exists('mt_trackRate')) {
         getMetricsLogger()->trackRate($metric, $value, $tags);
     }
 }
+
+if (!function_exists('mt_trackError')) {
+    function mt_trackError(string $metric, Throwable $error, array $tags = []): void
+    {
+        getMetricsLogger()->trackError($metric, $error, $tags);
+    }
+}
