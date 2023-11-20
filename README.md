@@ -19,7 +19,7 @@ composer require algyounes/statsdplus
 
 ### Usage
 
-1. Register the laravel service provider in your `config/app.php`:
+1. Register the Laravel service provider in your `config/app.php`:
 
    ```php
    return [
@@ -65,4 +65,25 @@ composer require algyounes/statsdplus
    
    // Stop the timer and log the duration
    mt_endTimer('db.query.execution');
+
+   // Tracking Unique Visitors
+   // Use `mt_trackUnique` to track the number of unique visitors to a specific page in the application. This method is ideal for understanding user engagement and reach.
+   $userID = getCurrentUserID(); // Retrieve the unique user ID
+   mt_trackUnique('homepage.unique.visitors', $userID);
+
+   // Tracking Rate
+   // `mt_trackRate` can be used to monitor the rate of requests. This is useful for identifying usage patterns and potential bottlenecks.
+   $endpoint = '/api/v1/data';
+   $requestRate = calculateRequestRate(); // calculate the request rate
+   mt_trackRate('api.request.rate', $requestRate, ['endpoint' => $endpoint]);
+
+   // Error Tracking 
+   // `mt_trackError` to log errors that occur within your application. This function helps in identifying and responding to issues promptly.
+   
+   try {
+       // Code that might throw an error or exception
+   } catch (Throwable $e) {
+       mt_trackError('system.errors', $e, ['module' => 'paymentProcessing']);
+   }
+   
    ```
