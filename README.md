@@ -18,7 +18,6 @@ First, you need to let Composer know where to find the StatsDPlus package. Add t
 
 ```json
  "repositories": [
-     // ... 
      {
          "type": "vcs",
          "url": "https://github.com/algoyounes/statsdplus"
