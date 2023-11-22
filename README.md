@@ -1,6 +1,6 @@
 # StatsDPlus
 
-StatsDPlus is an enhanced client for interfacing with StatsD, offering an intuitive and flexible way to track application metrics. With seamless Laravel integration and easy-to-use helper functions, StatsDPlus simplifies metrics collection for your PHP applications.
+StatsDPlus is an enhanced client for interfacing with StatsD, offering an intuitive and flexible way to track application metrics. With seamless Laravel integration and easy-to-use helper functions, StatsDPlus simplifies metrics collection for your applications.
 
 ## Features
 
