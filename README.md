@@ -11,11 +11,30 @@ StatsDPlus is an enhanced client for interfacing with StatsD, offering an intuit
 
 ## Installation
 
-Install StatsDPlus using Composer:
+
+### Step 1: Modile the composer file
+
+First, you need to let Composer know where to find the StatsDPlus package. Add the following repository information to your composer.json file:
+
+```json
+ "repositories": [
+     // ... 
+     {
+         "type": "vcs",
+         "url": "https://github.com/algoyounes/statsdplus"
+     }
+ ],
+```
+
+
+### Step 2: Install StatsDPlus using Composer
+
+Once your `composer.json` is set up, run the following command in your terminal or command prompt to install StatsdPlus:
 
 ```shell
 composer require algyounes/statsdplus
 ```
+
 
 ### Usage
 
