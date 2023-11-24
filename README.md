@@ -12,7 +12,7 @@ StatsDPlus is an enhanced client for interfacing with StatsD, offering an intuit
 ## Installation
 
 
-### Step 1: Modile the composer file
+### Step 1: Modify the composer file
 
 First, you need to let Composer know where to find the StatsDPlus package. Add the following repository information to your composer.json file:
 
